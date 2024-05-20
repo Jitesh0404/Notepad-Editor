@@ -1,9 +1,12 @@
-import { Button} from "../commonComponents/Button";
+import { Button } from "../commonComponents/Button";
 import { inputBox } from "../styles/Styles";
 import { FiLock } from "react-icons/fi";
 import { FiUser } from "react-icons/fi";
 import OtherLoginOrRegister from "./OtherLoginOrRegister";
-const Login = () => {
+const Login = ({ userDetails, setUserDetails }) => {
+  const handleInputChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.id]: e.target.value });
+  };
   return (
     <>
       <div className="w-[100%] md:w-[60%] m-auto flex flex-col gap-4">
@@ -18,17 +21,23 @@ const Login = () => {
         <div className="flex items-center relative justify-center">
           <FiUser color="black" size={24} className="absolute left-4" />
           <input
+          id="userName"
             type="text"
             placeholder="Username"
             className={`${inputBox} pl-12`}
+            value={userDetails.userName}
+            onChange={handleInputChange}
           />
         </div>
         <div className="flex items-center relative justify-center">
           <FiLock color="black" size={24} className="absolute left-4" />
           <input
+            id="password"
             type="password"
             placeholder="Password"
             className={`${inputBox} pl-12`}
+            value={userDetails.password}
+            onChange={handleInputChange}
           />
         </div>
         <Button type="submit" text="Login" bgColor={"#1E1E1E"} />

@@ -2,6 +2,9 @@
 export const Button = ({type,text,bgColor}) => {
   return <button type={type} className={`bg-[${bgColor}] text-[#FFFFFF] p-4 rounded-xl`}>{text.toUpperCase()}</button>
 };
+export const ButtonWithAction = ({type,text,bgColor,action,disable}) => {
+  return <button disabled={disable} type={type} onClick={action} className={`bg-[${bgColor}] text-[#FFFFFF] p-4 rounded-xl`}>{text.toUpperCase()}</button>
+};
 
 
 export const ButtonWithIcon = ({Icon,text,bgColor,IconClr}) =>{

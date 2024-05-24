@@ -1,8 +1,17 @@
 const express = require('express');
+const cors = require('cors')
 const userRoute = require('./routes/userRoute');
 const mongoDb = require('./mongoDb/mongoDb');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
+
+// CORS origin
+app.use(cors({
+    origin:'*',
+    methods:['Get','Post','Put','Delete'],
+    credentials:true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}))
 
 // mongodb database
 mongoDb();
@@ -14,7 +23,7 @@ app.use(express.json());
 app.use('/api/user',userRoute);
 
 app.listen(PORT,()=>{
-    console.log("Server is running on port 3000");
+    console.log("Server is running on port 3001");
 })
 
 // middleware to handle error

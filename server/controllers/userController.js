@@ -1,9 +1,10 @@
+const bcrypt = require("bcrypt");
 const express = require("express");
 const User = require("../models/userModal");
-const router = express.Router();
 
 const userRegister = async (req, res) => {
-  const { fullName, userName, password } = req.body;
+  const { fullName, userName } = req.body;
+  let {password} = req.body;
   if (!fullName || !userName || !password)
     return res
       .status(403)
@@ -16,6 +17,8 @@ const userRegister = async (req, res) => {
         .status(403)
         .json({ success: true, message: "User Already exists." });
     }
+    // hashing the passport
+    password = await bcrypt.hash(password, 10);
     const user = new User({ fullName, userName, password });
     await user.save();
     return res

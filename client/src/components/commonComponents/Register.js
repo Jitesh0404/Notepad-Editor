@@ -7,13 +7,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ToastMessage from "./ToastMessage";
 import { useDispatch, useSelector } from "react-redux";
-import { updateLoading } from "../../slices/loadingSlice";
+import { updateLoading } from "../../redux/slices/loadingSlice";
 
 const Register = ({ userDetails, setUserDetails }) => {
   // loading reducer
   const loading = useSelector((state) => state.loading.loading);
   const dispatch = useDispatch();
-  console.log("Loading state is : ",loading);
   const handleInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.id]: e.target.value });
   };
@@ -36,7 +35,9 @@ const Register = ({ userDetails, setUserDetails }) => {
           userName: "",
           password: "",
         });
+        return;
       }
+      ToastMessage({ message: data.message, type:'error' });
     } catch (error) {
       console.log("Error in Registering User : ", error);
       ToastMessage({ message: error.message, type:'error' });

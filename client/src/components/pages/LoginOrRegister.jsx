@@ -10,7 +10,6 @@ const LoginOrRegister = () => {
     userName:'',
     password:'',
   });
-  console.log("User Details is : ",userDetails);
   return (
     <div className="bg-[#1E1E1E] h-fit md:h-[100vh] flex">
       <div className="h-[90%] md:h-[80%] w-[90%] md:w-[80%] bg-[#FFFFFF] m-auto rounded-3xl p-[34px] flex flex-col-reverse md:flex-row justify-center items-center">

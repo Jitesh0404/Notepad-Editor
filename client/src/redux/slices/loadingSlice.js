@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export const loadingSlice = createSlice({
-  name: 'counter',
+  name: 'loading',
   initialState,
   reducers: {
     updateLoading: (state, action) => {

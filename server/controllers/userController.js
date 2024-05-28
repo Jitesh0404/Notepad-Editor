@@ -63,7 +63,7 @@ const userLogin = async (req, res, next) => {
         // expires: new Date(Date.now() + 24 * 60 * 60 * 7),
       })
       .status(200)
-      .json({success:true,message:"User Logged In Successfully",data:rest});
+      .json({success:true,message:"User Logged In Successfully",userDetails:rest});
   } catch (error) {
     console.log("Error in Login user response", error);
     next(error);

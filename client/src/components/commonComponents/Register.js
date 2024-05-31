@@ -1,5 +1,6 @@
 import { inputBox } from "../styles/Styles";
 import { FiLock, FiUser } from "react-icons/fi";
+import { CiCamera } from "react-icons/ci";
 import { RxAvatar } from "react-icons/rx";
 import { ButtonWithAction } from "./Button";
 import OtherLoginOrRegister from "./OtherLoginOrRegister";
@@ -16,6 +17,10 @@ const Register = ({ userDetails, setUserDetails }) => {
   const handleInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.id]: e.target.value });
   };
+  const handleProfileChange = (e) => {
+    const imageUrl = URL.createObjectURL(e.target.files[0]);
+    setUserDetails({ ...userDetails, profileImg: imageUrl });
+  }
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -30,11 +35,7 @@ const Register = ({ userDetails, setUserDetails }) => {
       const data = await response.json();
       if (data.success) {
         ToastMessage({ message: data.message, type: data.message === 'User Created Successfully.' ? "success" : 'error' });
-        setUserDetails({
-          fullName: "",
-          userName: "",
-          password: "",
-        });
+        setUserDetails({...userDetails,fullName:'',userName:'',password:'',profileImg:require('../assets/images/profile.png')});
         return;
       }
       ToastMessage({ message: data.message, type:'error' });
@@ -49,6 +50,19 @@ const Register = ({ userDetails, setUserDetails }) => {
     <>
       <div className="w-2/3 md:w-1/2 m-auto">
         <form className="flex flex-col gap-4" onSubmit={handleRegister}>
+        <div className="flex items-center relative justify-center">
+          <input
+            id="profileImg"
+            type="file"
+            style={{ display: 'none' }}
+            // value={userDetails.profileImg}
+            onChange={handleProfileChange}
+          />
+          <label htmlFor="profileImg" className="cursor-pointer">
+            <img src={userDetails.profileImg} alt="profile-image" loading="lazy" width={120} height={120} className="z-10"/>
+          </label>
+          <CiCamera size={40} className="absolute bottom-0 translate-x-[50%] z-50 cursor-pointer" color="white" onClick={() => document.getElementById('profileImg').click()}/>
+        </div>
           <div className="flex items-center relative justify-center">
             <RxAvatar color="black" size={24} className="absolute left-4" />
             <input

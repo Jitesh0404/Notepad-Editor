@@ -2,6 +2,7 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const cors = require("cors");
 const userRoute = require("./routes/userRoute");
+const membersRoute = require("./routes/membersRoute");
 const mongoDb = require("./mongoDb/mongoDb");
 const app = express();
 const PORT = 3001;
@@ -26,6 +27,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/user", userRoute);
+app.use("/api/members", membersRoute);
 
 app.listen(PORT, () => {
   console.log("Server is running on port 3001");

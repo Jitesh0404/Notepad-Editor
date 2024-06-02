@@ -18,8 +18,12 @@ const userSchema = new mongoose.Schema({
     },
     profileImg:{
         type:String,
-    }
-})
+    },
+    members:{
+        type:Array,
+        default:[]
+    },
+},{timestamps:true})
 
 const User = mongoose.model('User',userSchema);
 module.exports = User;

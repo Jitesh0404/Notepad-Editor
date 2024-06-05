@@ -8,7 +8,10 @@ import { useDispatch } from "react-redux";
 import ToastMessage from "./ToastMessage";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { setUserData } from "../../redux/slices/UserSlice";
 const Login = ({ userDetails, setUserDetails }) => {
+  const navigation = useNavigate();
   const dispatch = useDispatch();
   const handleInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.id]: e.target.value });
@@ -38,7 +41,8 @@ const Login = ({ userDetails, setUserDetails }) => {
           userName: "",
           password: "",
         });
-        
+        dispatch(setUserData(data?.userDetails))
+        navigation("/home");
         return;
       }
       ToastMessage({ message: data.message, type: "error" });

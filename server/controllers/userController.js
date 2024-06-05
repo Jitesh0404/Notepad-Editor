@@ -7,12 +7,12 @@ const User = require("../models/userModal");
 
 // User Registration
 const userRegister = async (req, res,next) => {
-  const { fullName, userName } = req.body;
+  const { fullName, userName,profileImg } = req.body;
   let { password } = req.body;
-  if (!fullName || !userName || !password)
+  if (!fullName || !userName || !password || !profileImg)
     return res
       .status(403)
-      .json({ success: false, message: "Please fill all the details" });
+      .json({ success: false, message: "Please provide all the details" });
 
   try {
     const isUser = await User.findOne({ userName });
@@ -23,7 +23,7 @@ const userRegister = async (req, res,next) => {
     }
     // hashing the passport
     password = await bcrypt.hash(password, 10);
-    const user = new User({ fullName, userName, password });
+    const user = new User({ fullName, userName, password, profileImg });
     await user.save();
     return res
       .status(200)
@@ -63,7 +63,7 @@ const userLogin = async (req, res, next) => {
         // expires: new Date(Date.now() + 24 * 60 * 60 * 7),
       })
       .status(200)
-      .json({success:true,message:"User Logged In Successfully",data:rest});
+      .json({success:true,message:"User Logged In Successfully",userDetails:rest});
   } catch (error) {
     console.log("Error in Login user response", error);
     next(error);

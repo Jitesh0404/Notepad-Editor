@@ -6,6 +6,7 @@ import Register from "../commonComponents/Register";
 const LoginOrRegister = () => {
   const [isLoginBtn,setIsLoginBtn] = useState(true);
   const [userDetails,setUserDetails] = useState({
+    profileImg:require('../assets/images/profile.png'),
     fullName:'',
     userName:'',
     password:'',

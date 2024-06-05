@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoMdCloseCircle } from "react-icons/io";
 
-const InviteMember = ({ setIsInviteModalOpen }) => {
+const InviteMember = ({ setIsInviteModalOpen,getListMembers }) => {
   const user = useSelector((state) => state.user.user);
   const [memberName, setMemberName] = useState("");
   const handleInviteMember = async () => {
@@ -37,11 +37,15 @@ const InviteMember = ({ setIsInviteModalOpen }) => {
             data.message === "Member added successfully." ? "success" : "error",
         });
         setMemberName("");
+        getListMembers();
         return;
       }
       ToastMessage({ message: data.message, type: "error" });
       console.log("Data from addMember is : ", data);
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error while adding member : ", error);
+      ToastMessage({ message: error.message, type: "error" });
+    }
   };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 p-4">

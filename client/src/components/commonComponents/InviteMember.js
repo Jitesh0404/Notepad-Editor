@@ -16,7 +16,7 @@ const InviteMember = ({ setIsInviteModalOpen,getListMembers }) => {
     }
     try {
       const response = await fetch(
-        "http://localhost:3001/api/members/addMember",
+        "http://localhost:4000/api/members/addMember",
         {
           method: "POST",
           headers: {

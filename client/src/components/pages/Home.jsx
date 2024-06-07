@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import ToastMessage from '../commonComponents/ToastMessage';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
-
+import {io} from 'socket.io-client';
 const Home = () => {
   const user = useSelector(state=>state.user.user);
   const [isInviteModalOpen,setIsInviteModalOpen] = useState(false);
@@ -16,7 +16,7 @@ const Home = () => {
   console.log("Members listMembers : ",membersList);
   const getListMembers = async()=>{
     try {
-      const response  = await fetch(`http://localhost:3001/api/members/listMembers?userName=${user.userName}`,{
+      const response  = await fetch(`http://localhost:4000/api/members/listMembers?userName=${user.userName}`,{
         method:'GET',
         credentials:'include'
       });
@@ -31,6 +31,18 @@ const Home = () => {
       ToastMessage({ message: data.message, type: "error" });
     }
   }
+  useEffect(()=>{
+    // socket connection
+    const socket = io('http://localhost:4000',{withCredentials:true,transports:['websocket']});
+    socket.on('connect', function() {
+      console.log('Connected to the server');
+    });
+    
+    socket.on('disconnect', function() {
+      console.log('Disconnected from the server');
+    });
+    console.log("Socket : ",socket);
+  },[])
   useEffect(() => {
     getListMembers();
   },[])

@@ -25,7 +25,7 @@ const Register = ({ userDetails, setUserDetails }) => {
     e.preventDefault();
     try {
       dispatch(updateLoading(true))
-      const response = await fetch("http://localhost:3001/api/user/register", {
+      const response = await fetch("http://localhost:4000/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

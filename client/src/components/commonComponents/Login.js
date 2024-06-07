@@ -20,7 +20,7 @@ const Login = ({ userDetails, setUserDetails }) => {
     e.preventDefault();
     try {
       dispatch(updateLoading(true));
-      const response = await fetch("http://localhost:3001/api/user/login", {
+      const response = await fetch("http://localhost:4000/api/user/login", {
         method:'POST', 
         headers: {
           "Content-Type": "application/json",

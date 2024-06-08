@@ -36,12 +36,20 @@ const Home = () => {
     const socket = io('http://localhost:4000',{withCredentials:true,transports:['websocket']});
     socket.on('connect', function() {
       console.log('Connected to the server');
+      socket.emit('user-status',user.userName);
+      
+      // showing popup when user joined
+      socket.on('user-msg',(userName)=>{
+        console.log('User Joined popup: ',userName);
+        ToastMessage({message:`${userName} joined`,type:'info'});
+      })
     });
     
-    socket.on('disconnect', function() {
-      console.log('Disconnected from the server');
-    });
-    console.log("Socket : ",socket);
+    return () =>{
+      socket.on('disconnect', function() {
+        socket.emit('user-status',user.userName);
+      })
+    };
   },[])
   useEffect(() => {
     getListMembers();

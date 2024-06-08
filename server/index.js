@@ -35,7 +35,10 @@ app.use("/api/user", userRoute);
 
 // socket connection
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  socket.on('user-status', (userName) => {
+    console.log('user joined', userName);
+    socket.broadcast.emit('user-msg', userName);
+  });
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
